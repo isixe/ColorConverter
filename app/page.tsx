@@ -11,13 +11,11 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip'
-import { useToast } from '@/hooks/use-toast'
 import color from 'color'
 import { Check, Copy, HelpCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export default function ColorConverter() {
-  const { toast } = useToast()
   const [colorObj, setColorObj] = useState(color('rgb(65, 105, 225)'))
   const [colorInput, setColorInput] = useState('royalblue')
   const [pickerColor, setPickerColor] = useState('#4169e1')
@@ -105,12 +103,6 @@ export default function ColorConverter() {
         setTimeout(() => {
           setCopyStates((prev) => ({ ...prev, [format]: false }))
         }, 2000)
-
-        toast({
-          title: 'Copied!',
-          description: `${text} copied to clipboard`,
-          duration: 2000
-        })
       },
       (err) => {
         console.error(err)
@@ -168,8 +160,6 @@ export default function ColorConverter() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="mb-8 text-center text-3xl font-bold">Color Converter</h1>
-
       <div className="mb-8">
         <div className="flex flex-col rounded-lg border bg-white p-6 shadow-sm">
           <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
