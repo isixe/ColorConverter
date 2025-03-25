@@ -206,7 +206,7 @@ export default function ColorConverter() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {['name', 'rgb', 'hex', 'hsl', 'hwb', 'cmyk'].map((format) => (
           <Card key={format} className="relative overflow-hidden">
             <CardHeader className="p-4 pb-2">
