@@ -82,7 +82,7 @@ export default function ColorConverter() {
         return
       }
 
-      const newColor = color(e.target.value)
+      const newColor = color(e.target.value.toLowerCase())
       setColorObj(newColor)
       setInputError(null)
       setIsValidColor(true)
@@ -156,7 +156,7 @@ export default function ColorConverter() {
     '#B22222': 'FireBrick',
     '#FFFAF0': 'FloralWhite',
     '#228B22': 'ForestGreen',
-    '#FF00FF': 'Fuchsia',
+    '#FF00FF': 'Fuchsia / Magenta',
     '#DCDCDC': 'Gainsboro',
     '#F8F8FF': 'GhostWhite',
     '#FFD700': 'Gold',
@@ -191,7 +191,6 @@ export default function ColorConverter() {
     '#00FF00': 'Lime',
     '#32CD32': 'LimeGreen',
     '#FAF0E6': 'Linen',
-    '#FF00FF': 'Magenta',
     '#800000': 'Maroon',
     '#66CDAA': 'MediumAquaMarine',
     '#0000CD': 'MediumBlue',
