@@ -25,7 +25,8 @@ export async function generateMetadata(): Promise<Metadata> {
         'A color conversion tool that supports conversions between RGB, HEX, HSL, HWB, and CMYK color formats.',
       url,
       siteName: 'ColorConverter',
-      locale: 'en'
+      locale: 'en',
+      images: `${url}/preview.jpg`
     }
   }
 }
