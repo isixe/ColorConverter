@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       url,
       siteName: 'ColorConverter',
       locale: 'en',
-      images: `${url}/preview.jpg`
+      images: `${url}/preview.png`
     }
   }
 }
