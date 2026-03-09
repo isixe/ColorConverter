@@ -1,5 +1,6 @@
 import Footer from '@/components/layout/footer'
 import Header from '@/components/layout/header'
+import { ThemeProvider } from '@/components/theme-provider'
 import '@/styles/global.css'
 import type { Metadata } from 'next'
 import { headers } from 'next/headers'
@@ -40,7 +41,7 @@ export default function RootLayout({
   const analyticsScript = process.env.ANALYTICS_SCRIPT || ''
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {analyticsScript ? (
           <Script
@@ -52,10 +53,17 @@ export default function RootLayout({
         ) : null}
       </head>
       <link rel="icon" href="/favicon.ico" />
-      <body>
-        <Header />
-        {children}
-        <Footer />
+      <body className="min-h-screen">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   )

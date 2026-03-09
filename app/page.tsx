@@ -3,7 +3,7 @@
 import type React from 'react'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import {
   Tooltip,
@@ -23,18 +23,15 @@ export default function ColorConverter() {
   const [inputError, setInputError] = useState<string | null>(null)
   const [isValidColor, setIsValidColor] = useState(true)
 
-  // Format descriptions for tooltips
   const formatDescriptions = {
     name: "Named colors - Standard CSS color names like 'red', 'blue', etc.",
     rgb: 'RGB (Red, Green, Blue) - Color model based on adding red, green, and blue light.',
     hex: 'HEX - Hexadecimal color representation commonly used in web development.',
     hsl: 'HSL (Hue, Saturation, Lightness) - Represents colors by their hue, saturation, and lightness values.',
     hwb: 'HWB (Hue, Whiteness, Blackness) - Similar to HSL but uses whiteness and blackness instead of saturation and lightness.',
-    cmyk: 'CMYK (Cyan, Magenta, Yellow, Key/Black) - Subtractive color model used in color printing.',
-    ncol: 'NCol (Natural Color System) - A color system based on how humans perceive color with hue and whiteness/blackness.'
+    cmyk: 'CMYK (Cyan, Magenta, Yellow, Key/Black) - Subtractive color model used in color printing.'
   }
 
-  // Update all values when color changes
   useEffect(() => {
     try {
       setPickerColor(colorObj.hex())
@@ -43,7 +40,6 @@ export default function ColorConverter() {
     }
   }, [colorObj])
 
-  // Handle color picker change
   const handlePickerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const newColor = color(e.target.value)
@@ -57,7 +53,6 @@ export default function ColorConverter() {
     }
   }
 
-  // Handle manual color input
   const handleColorInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const colorInput = e.target.value
     setColorInput(colorInput)
@@ -92,14 +87,10 @@ export default function ColorConverter() {
     }
   }
 
-  // Copy color value to clipboard
   const copyToClipboard = (text: string, format: string) => {
     navigator.clipboard.writeText(text).then(
       () => {
-        // Set copy success state for this specific format
         setCopyStates((prev) => ({ ...prev, [format]: true }))
-
-        // Reset after 2 seconds
         setTimeout(() => {
           setCopyStates((prev) => ({ ...prev, [format]: false }))
         }, 2000)
@@ -267,7 +258,6 @@ export default function ColorConverter() {
     }
   }
 
-  // Format color values for different formats
   const getFormattedColor = (format: string) => {
     if (!isValidColor) return 'Unknown'
 
@@ -302,111 +292,126 @@ export default function ColorConverter() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <div className="flex flex-col rounded-lg border bg-white p-6 shadow-sm">
-          <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
-            <div className="relative">
-              <div
-                className="mb-4 aspect-square h-40 w-full cursor-pointer rounded-md border shadow-sm"
-                style={{ backgroundColor: pickerColor }}
-              />
-              <input
-                type="color"
-                value={pickerColor}
-                onChange={handlePickerChange}
-                className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-                aria-label="Color Picker"
-              />
-            </div>
+    <main className="pb-10 pt-10 md:pb-20 md:pt-20">
+      <div className="container mx-auto max-w-5xl px-4">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+          <Card className="border-border lg:col-span-4">
+            <CardContent className="flex flex-col gap-6 p-6">
+              <div>
+                <h2 className="mb-1 text-lg font-semibold">Color Input</h2>
+                <p className="text-sm text-muted-foreground">
+                  Pick a color or enter a value
+                </p>
+              </div>
 
-            <div>
-              <label
-                htmlFor="colorInput"
-                className="mb-2 block text-sm font-medium"
-              >
-                Enter any color format:
-              </label>
-              <Input
-                id="colorInput"
-                value={colorInput}
-                onChange={handleColorInputChange}
-                placeholder="Enter color (name, hex, rgb, etc.)"
-                className={`${
-                  inputError ? 'border-red-500' : ''
-                } outline-none focus-visible:ring-0 focus-visible:ring-offset-0`}
-              />
-              <p className="mt-3 text-sm text-muted-foreground">
-                Examples: red, #ff0000, rgb(255,0,0), hsl(0,100%,50%)...
-              </p>
-              <p
-                className={`${inputError ? 'visible' : 'invisible'} mt-1 text-sm text-red-500`}
-              >
-                {inputError ? inputError : 'Invalid color format.'}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+              <div className="relative mx-auto w-full max-w-[160px]">
+                <div
+                  className="aspect-square w-full cursor-pointer rounded-full border-4 border-border transition-colors"
+                  style={{ backgroundColor: pickerColor }}
+                />
+                <input
+                  type="color"
+                  value={pickerColor}
+                  onChange={handlePickerChange}
+                  className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                  aria-label="Color Picker"
+                />
+              </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {['name', 'rgb', 'hex', 'hsl', 'hwb', 'cmyk'].map((format) => (
-          <Card key={format} className="relative overflow-hidden">
-            <CardHeader className="p-4 pb-2">
-              <div className="flex items-center">
-                <CardTitle className="text-lg capitalize">
-                  {format.toUpperCase()}
-                </CardTitle>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
+              <div>
+                <label
+                  htmlFor="colorInput"
+                  className="mb-2 block text-sm font-medium"
+                >
+                  Enter color value
+                </label>
+                <Input
+                  id="colorInput"
+                  value={colorInput}
+                  onChange={handleColorInputChange}
+                  placeholder="red, #ff0000, rgb(255,0,0)..."
+                  className={`${inputError ? 'border-destructive' : ''}`}
+                />
+                {inputError && (
+                  <p className="mt-2 text-sm text-destructive">{inputError}</p>
+                )}
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Supports: name, hex, rgb, hsl, hwb, cmyk
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border lg:col-span-8">
+            <CardContent className="flex flex-col gap-4 p-6">
+              <div>
+                <h2 className="mb-1 text-lg font-semibold">Converted Values</h2>
+                <p className="text-sm text-muted-foreground">
+                  Copy any format to clipboard
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                {['name', 'hex', 'rgb', 'hsl', 'hwb', 'cmyk'].map((format) => (
+                  <div
+                    key={format}
+                    className="group flex flex-col rounded-lg border border-border bg-card p-3 transition-colors hover:bg-muted/50"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        {' '}
+                        <span className="text-sm font-bold uppercase text-muted-foreground">
+                          {format}
+                        </span>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <button className="rounded-full p-1 transition-colors hover:bg-muted">
+                                <HelpCircle className="h-3.5 w-3.5 text-muted-foreground" />
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="max-w-xs text-sm">
+                                {
+                                  formatDescriptions[
+                                    format as keyof typeof formatDescriptions
+                                  ]
+                                }
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </div>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="ml-1 h-6 w-6 p-0"
-                      >
-                        <HelpCircle className="h-4 w-4" />
-                        <span className="sr-only">Info</span>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="max-w-xs">
-                        {
-                          formatDescriptions[
-                            format as keyof typeof formatDescriptions
-                          ]
+                        onClick={() =>
+                          copyToClipboard(getFormattedColor(format), format)
                         }
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                        className="h-8 w-8"
+                      >
+                        {copyStates[format] ? (
+                          <Check className="h-4 w-4 text-green-500" />
+                        ) : (
+                          <Copy className="h-4 w-4" />
+                        )}
+                        <span className="sr-only">
+                          {copyStates[format] ? 'Copied' : 'Copy'}
+                        </span>
+                      </Button>
+                    </div>
+                    <div className="flex items-center justify-between gap-2">
+                      <code className="flex-1 rounded bg-muted px-2 py-2 text-sm font-medium">
+                        {getFormattedColor(format)}
+                      </code>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() =>
-                  copyToClipboard(getFormattedColor(format), format)
-                }
-                className="absolute right-3 top-3 h-8 w-8"
-              >
-                {copyStates[format] ? (
-                  <Check className="h-4 w-4 text-green-500" />
-                ) : (
-                  <Copy className="h-4 w-4" />
-                )}
-                <span className="sr-only">
-                  {copyStates[format] ? 'Copied' : 'Copy'}
-                </span>
-              </Button>
-            </CardHeader>
-            <CardContent className="p-4 pt-2">
-              <code className="block overflow-x-auto rounded bg-muted p-2 text-sm">
-                {getFormattedColor(format)}
-              </code>
             </CardContent>
           </Card>
-        ))}
+        </div>
       </div>
-    </div>
+    </main>
   )
 }

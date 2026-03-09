@@ -4,23 +4,21 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="mt-auto">
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <div className="text-sm text-muted-foreground">
-            &copy; {currentYear} Color Converter. All rights reserved.
-          </div>
-          <div className="text-sm text-muted-foreground">
-            Created by{' '}
+    <footer className="border-t border-border bg-background">
+      <div className="container mx-auto max-w-5xl px-4 py-6">
+        <div className="flex flex-col items-center gap-2 text-center text-sm text-muted-foreground sm:flex-row sm:justify-between">
+          <p>&copy; {currentYear} ColorConverter. All rights reserved.</p>
+          <p>
+            Built by{' '}
             <Link
               href="https://github.com/isixe"
-              className="underline hover:text-foreground"
+              className="font-medium transition-colors hover:text-foreground"
               target="_blank"
               rel="noopener noreferrer"
             >
               isixe
             </Link>
-          </div>
+          </p>
         </div>
       </div>
     </footer>
