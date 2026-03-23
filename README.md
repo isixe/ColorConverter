@@ -7,7 +7,6 @@ A powerful color conversion tool that supports converting colors between RGB, HE
 - **Multiple Color Formats**: Convert between RGB, HEX, HSL, HWB, and CMYK
 - **Named Colors**: Support for all CSS named colors
 - **Clipboard Support**: One-click copy to clipboard for any format
-- **Dark Mode**: Built-in dark/light theme support
 - **Real-time Conversion**: Instant conversion as you type
 
 ## Installation
