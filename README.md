@@ -65,7 +65,6 @@ pnpm start
 ## Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/) 16
-- **UI Library**: [React](https://react.dev/) 19
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Components**: [shadcn/ui](https://ui.shadcn.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
