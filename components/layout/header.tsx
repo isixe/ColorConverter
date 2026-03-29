@@ -15,6 +15,12 @@ export default function Header() {
           ColorConverter
         </Link>
         <div className="flex items-center gap-1">
+          <Link
+            href="/api"
+            className="flex h-9 items-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-muted"
+          >
+            API
+          </Link>
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="relative flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-muted"
